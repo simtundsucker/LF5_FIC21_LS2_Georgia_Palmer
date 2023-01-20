@@ -31,38 +31,38 @@ class Fahrkartenautomat {
 		double zuZahlenderBetrag = 0.0;
 		int anzahlDerTickets = 0;
 		int wahlDerTickets;
+		String[] ticketBezeichnung = {"Einzelfahrschein AB", "Einzelfahrschein BC", 
+				"Einzelfahrschein ABC", "Kurzstrecke AB", "Tageskarte AB", "Tageskarte BC",
+				"Tageskarte ABC", "4-Fahrten-Karte AB", "4-Fahrten-Karte BC", "4-Fahrten-Karte ABC",
+				"Kleingruppen-Tageskarte AB", "Kleingruppen Tageskarte BC", 
+				"Kleingruppen-Tageskarte ABC"};
+		double [] ticketPreis = {3.00, 3.50, 3.80, 2.00, 8.60, 9.20, 10.00, 9.40,
+				12.60, 13.80, 25.50, 26.00, 26.50};
 		do {
 			do {
-			System.out.println("\nWählen Sie Ihre Wunschfahrkarte für Berlin AB aus:"
-					+ "\n  Kurzstrecke AB [2,00 EUR] (1)"
-					+ "\n  Einzelfahrschein AB [3,00 EUR] (2)"
-					+ "\n  Tageskarte AB [8,80 EUR] (3)"
-					+ "\n  4-Fahrten-Karte AB [9,40 EUR] (4))"
-					+ "\n  Bezahlen (9)");
-			System.out.println("\n\nIhre Wahl: " );
+				System.out.println("\nWählen Sie Ihre Wunschfahrkarte für Berlin AB aus:");
+				
+				for (int i=0; i<ticketPreis.length; i++) {
+				System.out.printf("%s [%.2f] (%d)\n", ticketBezeichnung [i], ticketPreis[i], i+1);	
+				}
+				System.out.println("Bezahlen: (0)");
+				System.out.println("\n\nIhre Wahl: " );
 			
-			wahlDerTickets = tastatur.nextInt();
-			
-			switch (wahlDerTickets) {
-			case 1:
-				zuZahlenderBetrag = 2; 
-				break;
-			case 2:
-				zuZahlenderBetrag = 3;
-				break;
-			case 3:
-				zuZahlenderBetrag = 8.8;
-				break;
-			case 4:
-				zuZahlenderBetrag = 9.4;
-				break;
-			case 9:	break;
-				default:
-					System.out.println(">>falsche Eingabe<< Bitte Eingabe zwischen 1-4 oder 9 tätigen: "); break;
-			}  
-		} while (wahlDerTickets != 1 && wahlDerTickets != 2 && wahlDerTickets != 3 && wahlDerTickets != 4 && wahlDerTickets != 9);
+				wahlDerTickets = tastatur.nextInt();
+				
+				if (wahlDerTickets == 0) break;
+				
+				if (wahlDerTickets < 0 || wahlDerTickets > ticketPreis.length) {
+				System.out.printf("\n >>falsche Eingabe<< Bitte Eingabe zwischen (0) und (%d) tätigen: ",
+						ticketPreis.length);
+				continue;
+				} 
+					else {
+							zuZahlenderBetrag = ticketPreis [wahlDerTickets-1];
+				}
+		} while (wahlDerTickets < 0 || wahlDerTickets > ticketPreis.length);
 		
-			if (wahlDerTickets == 9) break;
+			if (wahlDerTickets == 0) break;
 			
 		while (true) {
 			System.out.print("Anzahl der Tickets: ");
